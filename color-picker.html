@@ -7,57 +7,59 @@
   </head>
   <body>
 
-    <span class="Button MenuToggle">Theme Color</span>
+    <div id="color-picker-container">
+      <span class="Button MenuToggle">Theme Color</span>
 
-    <div class="Menu ColorPicker u-hiddenVisually">
-      <div class="dropdown-caret">
-        <span class="caret-outer"></span>
-        <span class="caret-inner"></span>
-      </div>
-      <div class="ColorPicker-colorList">
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#fa743e" style="background-color: #fa743e">
-            <div class="Icon Icon--smallest"></div>
-          </div>
+      <div class="Menu ColorPicker u-hiddenVisually">
+        <div class="dropdown-caret">
+          <span class="caret-outer"></span>
+          <span class="caret-inner"></span>
         </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#ffcc4d" style="background-color: #ffcc4d">
-            <div class="Icon Icon--smallest"></div>
+        <div class="ColorPicker-colorList">
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#fa743e" style="background-color: #fa743e">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#94d487" style="background-color: #94d487">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#ffcc4d" style="background-color: #ffcc4d">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#4a913c" style="background-color: #4a913c">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#94d487" style="background-color: #94d487">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#89c9fa" style="background-color: #89c9fa">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#4a913c" style="background-color: #4a913c">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#3b94d9" style="background-color: #3b94d9">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#89c9fa" style="background-color: #89c9fa">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#abb8c2" style="background-color: #abb8c2">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#3b94d9" style="background-color: #3b94d9">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#dd2e44" style="background-color: #dd2e44">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#abb8c2" style="background-color: #abb8c2">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
-        </div>
-        <div class="ColorPicker-transparent">
-          <div class="ColorPicker-item ColorPicker-color" data-color="#f5abb5" style="background-color: #f5abb5">
-            <div class="Icon Icon--smallest"></div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#dd2e44" style="background-color: #dd2e44">
+              <div class="Icon Icon--smallest"></div>
+            </div>
+          </div>
+          <div class="ColorPicker-transparent">
+            <div class="ColorPicker-item ColorPicker-color" data-color="#f5abb5" style="background-color: #f5abb5">
+              <div class="Icon Icon--smallest"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -122,13 +124,12 @@
           colorPickerColorSelector: this.selectColor
         });
 
-        this.on('mousedown', this.closeDropdown);
-
+        this.on(document, 'mousedown', this.closeDropdown);
         this.on(document, 'uiUpdateColor', this.changeColor);
       });
     }
 
-    ColorPicker.attachTo(document);
+    ColorPicker.attachTo('#color-picker-container');
 
   </script>
 
