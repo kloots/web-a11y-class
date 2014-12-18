@@ -12,6 +12,10 @@
   background-clip: padding-box;
 }
 
+.Menu:focus {
+  outline: none;
+}
+
 .ColorPicker {
   background-color: white;
   border-radius: 4px;
