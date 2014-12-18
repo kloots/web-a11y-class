@@ -1,0 +1,135 @@
+.Menu {
+  position: absolute;
+  z-index: 900;
+  padding: 10px 0;
+  margin: 2px 0 0;
+  background: #fff;
+  background-color: rgba(255,255,255,0.98);
+  border: 1px solid #e1e8ed;
+  border: 0 solid rgba(0,0,0,0.25);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  background-clip: padding-box;
+}
+
+.ColorPicker {
+  background-color: white;
+  border-radius: 4px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 98px;
+  margin-top: 5px;
+  padding-left: 16px;
+  padding-top: 10px;
+  position: absolute;
+  width: 273px;
+  z-index: 1;
+}
+
+.ColorPicker-transparent {
+  background-color: transparent;
+  cursor: pointer;
+  display: inline-block;
+  height: 29px;
+  padding-right: 6px;
+  padding-top: 6px;
+  width: 29px;
+}
+
+.ColorPicker-item {
+  border-radius: 4px;
+  display: inline-block;
+  height: 29px;
+  text-align: center;
+  vertical-align: top;
+  width: 29px;
+}
+
+.Icon--smallest {
+  font-size: 20px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.Icon {
+  background: transparent;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+}
+
+.Icon--check:before {
+  content: "\2713";
+}
+
+.Icon:before {
+  display: block;
+  font-family: "rosettaicons";
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dropdown-caret {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  width: 18px;
+  height: 10px;
+  float: left;
+  overflow: hidden;
+}
+
+.ColorPicker .caret-outer {
+  border-bottom-color: #e1e8ed;
+  border-left-color: transparent!important;
+  border-right-color: transparent!important;
+  border-top-color: transparent!important;
+}
+
+.dropdown-caret .caret-outer {
+  border-bottom: 10px solid #8899a6;
+  border-bottom-color: rgba(0,0,0,0.1);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  height: auto;
+  left: 0;
+  top: 0;
+  width: auto;
+}
+
+.dropdown-caret .caret-outer,
+.dropdown-caret .caret-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  margin-left: -1px;
+}
+
+.dropdown-caret .caret-inner {
+  top: 1px;
+  left: 1px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #fff;
+  border-bottom-color: rgba(255,255,255,0.98);
+}
+
+.u-hiddenVisually {
+  position: absolute !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+}
+
+.Button {
+  border-radius: 4px;
+  display: inline-block;
+  background: #ccc;
+  padding: 2px 4px;
+}

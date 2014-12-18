@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Color Picker Example</title>
+    <link rel="stylesheet" href="color-picker.css">
+  </head>
+  <body>
+
+    <span class="Button MenuToggle">Theme Color</span>
+
+    <div class="Menu ColorPicker u-hiddenVisually">
+      <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+      </div>
+      <div class="ColorPicker-colorList">
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#fa743e" style="background-color: #fa743e">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#ffcc4d" style="background-color: #ffcc4d">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#94d487" style="background-color: #94d487">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#4a913c" style="background-color: #4a913c">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#89c9fa" style="background-color: #89c9fa">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#3b94d9" style="background-color: #3b94d9">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#abb8c2" style="background-color: #abb8c2">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#dd2e44" style="background-color: #dd2e44">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+        <div class="ColorPicker-transparent">
+          <div class="ColorPicker-item ColorPicker-color" data-color="#f5abb5" style="background-color: #f5abb5">
+            <div class="Icon Icon--smallest"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://flightjs.github.io/release/latest/flight.min.js"></script>
+
+  <script>
+
+    var ColorPicker = flight.component(colorPicker);
+
+    function colorPicker() {
+      this.defaultAttrs({
+        toggleButtonSelector: '.MenuToggle',
+        colorPickerSelector: '.ColorPicker',
+        colorPickerColorSelector: '.ColorPicker-color'
+      });
+
+      this.showDropdown = function(e) {
+        this.select('colorPickerSelector').removeClass('u-hiddenVisually');
+        this.dropdownOpen = true;
+      };
+
+      this.closeDropdown = function(e) {
+        var target = e.target;
+        var $target = $(target);
+        var $toggleButton = this.select('toggleButtonSelector');
+        var $colorPicker = this.select('colorPickerSelector');
+
+        if (!this.dropdownOpen) {
+          return;
+        }
+
+        if ($.contains($toggleButton[0], target) || $target.is($toggleButton)) {
+          return;
+        }
+
+        if ($.contains($colorPicker[0], target) || $target.is($colorPicker)) {
+          return;
+        }
+
+        this.select('colorPickerSelector').addClass('u-hiddenVisually');
+        this.dropdownOpen = false;
+      };
+
+      this.changeColor = function(e, data) {
+        this.select('toggleButtonSelector').css('background-color', data.color);
+      };
+
+      this.selectColor = function(e, data) {
+        this.select('colorPickerSelector').find('.Icon--check').removeClass('Icon--check');
+        $(data.el).find('.Icon').addClass('Icon--check');
+        this.trigger(document, 'uiUpdateColor', { color: $(data.el).data('color') })
+      };
+
+      this.after('initialize', function() {
+        this.on('mousedown', {
+          toggleButtonSelector: this.showDropdown,
+          colorPickerColorSelector: this.selectColor
+        });
+
+        this.on('mousedown', this.closeDropdown);
+
+        this.on(document, 'uiUpdateColor', this.changeColor);
+      });
+    }
+
+    ColorPicker.attachTo(document);
+
+  </script>
+
+<html>
