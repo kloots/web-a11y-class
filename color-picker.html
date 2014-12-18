@@ -8,61 +8,72 @@
   <body>
 
     <div id="color-picker-container">
-      <span class="Button MenuToggle">Theme Color</span>
 
-      <div class="Menu ColorPicker u-hiddenVisually">
-        <div class="dropdown-caret">
+      <button type="button" class="Button MenuToggle" aria-haspopup="true">Theme Color</button>
+
+      <div class="Menu ColorPicker u-hidden" role="menu" tabindex="-1">
+        <div class="dropdown-caret" aria-hidden="true">
           <span class="caret-outer"></span>
           <span class="caret-inner"></span>
         </div>
-        <div class="ColorPicker-colorList">
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#fa743e" style="background-color: #fa743e">
-              <div class="Icon Icon--smallest"></div>
+        <div role="presentation" class="ColorPicker-colorList">
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#fa743e" style="background-color: #fa743e" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">orange</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#ffcc4d" style="background-color: #ffcc4d">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#ffcc4d" style="background-color: #ffcc4d" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">yellow</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#94d487" style="background-color: #94d487">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#94d487" style="background-color: #94d487" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">lime</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#4a913c" style="background-color: #4a913c">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#4a913c" style="background-color: #4a913c" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">green</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#89c9fa" style="background-color: #89c9fa">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#89c9fa" style="background-color: #89c9fa" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">blue</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#3b94d9" style="background-color: #3b94d9">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#3b94d9" style="background-color: #3b94d9" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">navy</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#abb8c2" style="background-color: #abb8c2">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#abb8c2" style="background-color: #abb8c2" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">grey</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#dd2e44" style="background-color: #dd2e44">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#dd2e44" style="background-color: #dd2e44" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">red</span>
             </div>
           </div>
-          <div class="ColorPicker-transparent">
-            <div class="ColorPicker-item ColorPicker-color" data-color="#f5abb5" style="background-color: #f5abb5">
-              <div class="Icon Icon--smallest"></div>
+          <div role="presentation" class="ColorPicker-transparent">
+            <div role="menuitemradio" class="ColorPicker-item ColorPicker-color" data-color="#f5abb5" style="background-color: #f5abb5" tabindex="-1">
+              <div role="presentation" class="Icon Icon--smallest"></div>
+              <span class="u-hiddenVisually">pink</span>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
   </body>
@@ -78,11 +89,14 @@
       this.defaultAttrs({
         toggleButtonSelector: '.MenuToggle',
         colorPickerSelector: '.ColorPicker',
-        colorPickerColorSelector: '.ColorPicker-color'
+        colorPickerColorSelector: '.ColorPicker-color',
+        colorPickerItemSelector: '.ColorPicker-item'
       });
 
       this.showDropdown = function(e) {
-        this.select('colorPickerSelector').removeClass('u-hiddenVisually');
+        this.activeEl = document.activeElement;
+        this.select('colorPickerSelector').removeClass('u-hidden');
+        this.select('colorPickerSelector').focus();
         this.dropdownOpen = true;
       };
 
@@ -104,26 +118,103 @@
           return;
         }
 
-        this.select('colorPickerSelector').addClass('u-hiddenVisually');
+        this.select('colorPickerSelector').addClass('u-hidden');
         this.dropdownOpen = false;
       };
+
+      this.onEsc = function(e) {
+        if (!this.dropdownOpen) {
+          return;
+        }
+
+        if (e.keyCode != 27) {
+          return;
+        }
+
+        this.select('colorPickerSelector').addClass('u-hidden');
+        this.dropdownOpen = false;
+        this.activeEl.focus();
+      }
 
       this.changeColor = function(e, data) {
         this.select('toggleButtonSelector').css('background-color', data.color);
       };
 
       this.selectColor = function(e, data) {
+        var enterOrSpace = {
+          13: true,
+          32: true
+        }[e.keyCode];
+
+        if (e.keyCode && !enterOrSpace) {
+          return;
+        }
+
         this.select('colorPickerSelector').find('.Icon--check').removeClass('Icon--check');
+        this.select('colorPickerSelector').find('[role=menuitemradio][aria-checked]').removeAttr('aria-checked');
+
         $(data.el).find('.Icon').addClass('Icon--check');
+        $(data.el).attr('aria-checked', true);
+
         this.trigger(document, 'uiUpdateColor', { color: $(data.el).data('color') })
       };
 
+      this.moveSelection = function(e) {
+        var target = e.target;
+        var keyCode = e.keyCode;
+
+        if (!this.dropdownOpen) {
+          return;
+        }
+
+        var direction = {
+          37: 'prev', // Left arrow
+          38: 'prev', // Up arrow
+          39: 'next', // Right arrow
+          40: 'next' // Down arrow
+        }[e.keyCode];
+
+        if (!direction) {
+          return;
+        }
+
+        var $menuitems = this.select('colorPickerItemSelector');
+        var $selected = $(document.activeElement);
+        var $next;
+        var index;
+
+        if ($selected.length) {
+          index = $menuitems.index($selected);
+          index = (direction == 'next') ? index + 1 : index - 1;
+          $next = $menuitems.eq(index);
+        }
+
+        if (!$next || $next && !$next.length) {
+          $next = (direction == 'next') ? $menuitems.first() : $menuitems.last();
+        }
+
+        if ($next.length) {
+          $next[0].focus();
+
+          // Prevent scrolling of the window when the user is navigating the
+          // menuitems via the arrow keys.
+          e.preventDefault();
+        }
+      };
+
       this.after('initialize', function() {
-        this.on('mousedown', {
+        this.on('click', {
           toggleButtonSelector: this.showDropdown,
           colorPickerColorSelector: this.selectColor
         });
 
+        this.on('keydown', this.moveSelection);
+
+        this.on('keydown', {
+          colorPickerColorSelector: this.selectColor
+        });
+
+        this.on(document, 'keydown', this.onEsc);
         this.on(document, 'mousedown', this.closeDropdown);
         this.on(document, 'uiUpdateColor', this.changeColor);
       });
