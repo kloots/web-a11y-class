@@ -137,7 +137,7 @@
           32: true
         }[e.keyCode];
 
-        if (!enterOrSpace && e.type == 'keydown') {
+        if (e.keyCode && !enterOrSpace) {
           return;
         }
 
