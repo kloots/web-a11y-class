@@ -68,31 +68,20 @@
   </body>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://flightjs.github.io/release/latest/flight.min.js"></script>
-
   <script>
 
-    var ColorPicker = flight.component(colorPicker);
+    (function($) {
 
-    function colorPicker() {
-      this.defaultAttrs({
-        toggleButtonSelector: '.MenuToggle',
-        colorPickerSelector: '.ColorPicker',
-        colorPickerColorSelector: '.ColorPicker-color'
-      });
+      function showDropdown(e) {
+        $colorPicker.removeClass('u-hidden');
+        dropdownOpen = true;
+      }
 
-      this.showDropdown = function(e) {
-        this.select('colorPickerSelector').removeClass('u-hidden');
-        this.dropdownOpen = true;
-      };
-
-      this.closeDropdown = function(e) {
+      function closeDropdown(e) {
         var target = e.target;
         var $target = $(target);
-        var $toggleButton = this.select('toggleButtonSelector');
-        var $colorPicker = this.select('colorPickerSelector');
 
-        if (!this.dropdownOpen) {
+        if (!dropdownOpen) {
           return;
         }
 
@@ -104,33 +93,39 @@
           return;
         }
 
-        this.select('colorPickerSelector').addClass('u-hidden');
-        this.dropdownOpen = false;
+        $colorPicker.addClass('u-hidden');
+        dropdownOpen = false;
+      }
+
+      function changeColor(e, color) {
+        $toggleButton.css('background-color', color);
+      }
+
+      function selectColor(e) {
+        var $color = $(this);
+
+        $colorPicker.find('.Icon--check').removeClass('Icon--check');
+        $color.find('.Icon').addClass('Icon--check');
+
+        $(document).trigger('uiUpdateColor', [ $color.data('color') ]);
+      }
+
+      var $toggleButton = $('.MenuToggle');
+      var $colorPicker = $('.ColorPicker');
+      var dropdownOpen = false;
+
+      $.fn.colorPicker = function () {
+        this.on('click', '.MenuToggle', showDropdown);
+        this.on('click', '.ColorPicker-color', selectColor);
+
+        $(document).on('mousedown', closeDropdown);
+        $(document).on('uiUpdateColor', changeColor);
       };
 
-      this.changeColor = function(e, data) {
-        this.select('toggleButtonSelector').css('background-color', data.color);
-      };
+    }(jQuery));
 
-      this.selectColor = function(e, data) {
-        this.select('colorPickerSelector').find('.Icon--check').removeClass('Icon--check');
-        $(data.el).find('.Icon').addClass('Icon--check');
-        this.trigger(document, 'uiUpdateColor', { color: $(data.el).data('color') })
-      };
+    $('#color-picker-container').colorPicker();
 
-      this.after('initialize', function() {
-        this.on('mousedown', {
-          toggleButtonSelector: this.showDropdown,
-          colorPickerColorSelector: this.selectColor
-        });
-
-        this.on(document, 'mousedown', this.closeDropdown);
-        this.on(document, 'uiUpdateColor', this.changeColor);
-      });
-    }
-
-    ColorPicker.attachTo('#color-picker-container');
-
-  </script>
+   </script>
 
 <html>
