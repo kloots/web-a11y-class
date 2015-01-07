@@ -70,34 +70,22 @@
   </body>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://flightjs.github.io/release/latest/flight.min.js"></script>
-
   <script>
 
-    var ColorPicker = flight.component(colorPicker);
+    (function($) {
 
-    function colorPicker() {
-      this.defaultAttrs({
-        toggleButtonSelector: '.MenuToggle',
-        colorPickerSelector: '.ColorPicker',
-        colorPickerColorSelector: '.ColorPicker-color',
-        colorPickerItemSelector: '.ColorPicker-item'
-      });
+      function showDropdown(e) {
+        activeEl = document.activeElement;
+        $colorPicker.removeClass('u-hidden');
+        $colorPicker.focus();
+        dropdownOpen = true;
+      }
 
-      this.showDropdown = function(e) {
-        this.activeEl = document.activeElement;
-        this.select('colorPickerSelector').removeClass('u-hidden');
-        this.select('colorPickerSelector').focus();
-        this.dropdownOpen = true;
-      };
-
-      this.closeDropdown = function(e) {
+      function closeDropdown(e) {
         var target = e.target;
         var $target = $(target);
-        var $toggleButton = this.select('toggleButtonSelector');
-        var $colorPicker = this.select('colorPickerSelector');
 
-        if (!this.dropdownOpen) {
+        if (!dropdownOpen) {
           return;
         }
 
@@ -109,12 +97,12 @@
           return;
         }
 
-        this.select('colorPickerSelector').addClass('u-hidden');
-        this.dropdownOpen = false;
-      };
+        $colorPicker.addClass('u-hidden');
+        dropdownOpen = false;
+      }
 
-      this.onEsc = function(e) {
-        if (!this.dropdownOpen) {
+      function onEsc(e) {
+        if (!dropdownOpen) {
           return;
         }
 
@@ -122,16 +110,16 @@
           return;
         }
 
-        this.select('colorPickerSelector').addClass('u-hidden');
-        this.dropdownOpen = false;
-        this.activeEl.focus();
+        $colorPicker.addClass('u-hidden');
+        dropdownOpen = false;
+        activeEl.focus();
       }
 
-      this.changeColor = function(e, data) {
-        this.select('toggleButtonSelector').css('background-color', data.color);
-      };
+      function changeColor(e, color) {
+        $toggleButton.css('background-color', color);
+      }
 
-      this.selectColor = function(e, data) {
+      function selectColor(e) {
         var enterOrSpace = {
           13: true,
           32: true
@@ -141,16 +129,19 @@
           return;
         }
 
-        this.select('colorPickerSelector').find('.Icon--check').removeClass('Icon--check');
-        $(data.el).find('.Icon').addClass('Icon--check');
-        this.trigger(document, 'uiUpdateColor', { color: $(data.el).data('color') })
-      };
+        var $color = $(this);
 
-      this.moveSelection = function(e) {
+        $colorPicker.find('.Icon--check').removeClass('Icon--check');
+        $color.find('.Icon').addClass('Icon--check');
+
+        $(document).trigger('uiUpdateColor', [ $color.data('color') ]);
+      }
+
+      function moveSelection(e) {
         var target = e.target;
         var keyCode = e.keyCode;
 
-        if (!this.dropdownOpen) {
+        if (!dropdownOpen) {
           return;
         }
 
@@ -165,7 +156,7 @@
           return;
         }
 
-        var $menuitems = this.select('colorPickerItemSelector');
+        var $menuitems = $('.ColorPicker-item');
         var $selected = $(document.activeElement);
         var $next;
         var index;
@@ -187,27 +178,28 @@
           // menuitems via the arrow keys.
           e.preventDefault();
         }
+      }
+
+      var $toggleButton = $('.MenuToggle');
+      var $colorPicker = $('.ColorPicker');
+      var dropdownOpen = false;
+      var activeEl = null;
+
+      $.fn.colorPicker = function () {
+        this.on('click', '.MenuToggle', showDropdown);
+        this.on('click', '.ColorPicker-color', selectColor);
+
+        this.on('keydown', moveSelection);
+        this.on('keydown', '.ColorPicker-color', selectColor);
+
+        $(document).on('keydown', onEsc);
+        $(document).on('mousedown', closeDropdown);
+        $(document).on('uiUpdateColor', changeColor);
       };
 
-      this.after('initialize', function() {
-        this.on('click', {
-          toggleButtonSelector: this.showDropdown,
-          colorPickerColorSelector: this.selectColor
-        });
+    }(jQuery));
 
-        this.on('keydown', this.moveSelection);
-
-        this.on('keydown', {
-          colorPickerColorSelector: this.selectColor
-        });
-
-        this.on(document, 'mousedown', this.closeDropdown);
-        this.on(document, 'keydown', this.onEsc);
-        this.on(document, 'uiUpdateColor', this.changeColor);
-      });
-    }
-
-    ColorPicker.attachTo('#color-picker-container');
+    $('#color-picker-container').colorPicker();
 
   </script>
 
